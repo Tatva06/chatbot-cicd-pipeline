@@ -7,7 +7,7 @@ class ChatRequest(BaseModel):
     message: str
 
 RESPONSES = {
-    "ping": "broken",
+    "ping": "pong",
     "status": "All systems operational.",
     "cost": "Current run rate: within allocated budget."
 }
