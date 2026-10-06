@@ -25,7 +25,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Pytest Suite
+<<<<<<< Updated upstream
         run: pytest app/test_main.py
+=======
+        env:
+          PYTHONPATH: .
+        run: python -m pytest app/test_main.py
+>>>>>>> Stashed changes
 
   security_scan:
     name: Build & Security Vulnerability Scan
