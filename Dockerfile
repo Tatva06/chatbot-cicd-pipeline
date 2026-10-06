@@ -1,0 +1,17 @@
+# Multi-stage build for minimal image attack surface
+FROM python:3.11-slim AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+
+FROM python:3.11-slim
+WORKDIR /app
+COPY --from=builder /install /usr/local
+COPY ./app ./app
+
+# Run as non-root user for security best practices
+RUN useradd -m botuser && chown -R botuser /app
+USER botuser
+
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
